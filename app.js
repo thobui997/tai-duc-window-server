@@ -1,17 +1,21 @@
 const express = require('express');
 const cors = require('cors');
 const httpStatus = require('http-status');
+const compression = require('compression');
 const config = require('./config/config');
 const morgan = require('./config/morgan');
 const logger = require('./config/logger');
 const { errorConverter, errorHandler } = require('./middlewares/error');
 const ApiError = require('./utils/ApiError');
-const connectDB = require('./config/connectDB');
+const database = require('./config/database');
 
 const app = express();
 
+// Compress all HTTP response
+app.use(compression({ level: 6 }));
+
 // connect database
-connectDB();
+database.connectDB();
 
 if (config.env !== 'test') {
   app.use(morgan.successHandler);
@@ -27,10 +31,6 @@ app.use(express.urlencoded({ extended: true }));
 // enable cors
 app.use(cors());
 app.options('*', cors());
-
-app.get('/', (req, res) => {
-  res.send('hello world');
-});
 
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {
