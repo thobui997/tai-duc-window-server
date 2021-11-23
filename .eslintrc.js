@@ -14,10 +14,18 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    'prettier/prettier': ['error', { singleQuote: true, parser: 'flow', endOfLine: 'auto' }],
+    'prettier/prettier': ['error', {}, { usePrettierrc: true }],
     'class-methods-use-this': 'off',
     'no-param-reassign': 'off',
     'no-unused-vars': ['error', { argsIgnorePattern: 'next' }],
     'no-console': 'off',
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: true,
+        optionalDependencies: false,
+        peerDependencies: false,
+      },
+    ],
   },
 };
