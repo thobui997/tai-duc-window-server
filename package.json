@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "start:dev": "nodemon app.js"
+    "start:dev": "nodemon app.js",
+    "lint": "eslint --fix ."
   },
   "keywords": [],
   "author": "",
@@ -32,6 +33,7 @@
     "morgan": "^1.10.0",
     "nodemon": "^2.0.15",
     "prettier": "^2.4.1",
+    "sequelize-cli": "^6.3.0",
     "winston": "^3.3.3"
   }
 }

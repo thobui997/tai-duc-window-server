@@ -17,7 +17,6 @@ module.exports = {
     'prettier/prettier': ['error', {}, { usePrettierrc: true }],
     'class-methods-use-this': 'off',
     'no-param-reassign': 'off',
-    'no-unused-vars': ['error', { argsIgnorePattern: 'next' }],
     'no-console': 'off',
     'import/no-extraneous-dependencies': [
       'error',
@@ -27,5 +26,7 @@ module.exports = {
         peerDependencies: false,
       },
     ],
+    'arrow-body-style': ['error', 'always'],
+    'no-unused-vars': 'off',
   },
 };
