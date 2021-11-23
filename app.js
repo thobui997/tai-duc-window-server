@@ -6,8 +6,12 @@ const morgan = require('./config/morgan');
 const logger = require('./config/logger');
 const { errorConverter, errorHandler } = require('./middlewares/error');
 const ApiError = require('./utils/ApiError');
+const connectDB = require('./config/connectDB');
 
 const app = express();
+
+// connect database
+connectDB();
 
 if (config.env !== 'test') {
   app.use(morgan.successHandler);
