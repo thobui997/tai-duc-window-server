@@ -12,6 +12,9 @@ const envVarsSchema = Joi.object()
     DB_USERNAME: Joi.string().required(),
     DB_PASSWORD: Joi.string().required(),
     DB_DIALECT: Joi.string().required(),
+    JWT_SECRET: Joi.string().required(),
+    JWT_EXPIRE: Joi.string().required(),
+    JWT_COOKIE_EXPIRE: Joi.number().required(),
   })
   .unknown();
 
@@ -31,4 +34,7 @@ module.exports = {
   dbUsername: envVars.DB_USERNAME,
   dbPassword: envVars.DB_PASSWORD,
   dbDialect: envVars.DB_DIALECT,
+  jwtSecret: envVars.JWT_SECRET,
+  jwtExpire: envVars.JWT_EXPIRE,
+  jwtCookieExpire: envVars.JWT_COOKIE_EXPIRE,
 };

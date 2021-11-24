@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const httpStatus = require('http-status');
 const compression = require('compression');
+const cookieParser = require('cookie-parser');
 const config = require('./config/config');
 const morgan = require('./config/morgan');
 const logger = require('./config/logger');
@@ -9,10 +10,16 @@ const { errorConverter, errorHandler } = require('./middlewares/error');
 const ApiError = require('./utils/ApiError');
 const database = require('./config/database');
 
+// routes
+const userRouter = require('./routes/user.router');
+
 const app = express();
 
 // Compress all HTTP response
 app.use(compression({ level: 6 }));
+
+// parse cookie
+app.use(cookieParser());
 
 // connect database
 database.connectDB();
@@ -31,6 +38,9 @@ app.use(express.urlencoded({ extended: true }));
 // enable cors
 app.use(cors());
 app.options('*', cors());
+
+// mount router
+app.use('/api/v1/auth', userRouter);
 
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {

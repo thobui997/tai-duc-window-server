@@ -28,5 +28,6 @@ module.exports = {
     ],
     'arrow-body-style': ['error', 'always'],
     'no-unused-vars': 'off',
+    'no-return-await': 'off',
   },
 };

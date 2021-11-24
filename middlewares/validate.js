@@ -5,8 +5,9 @@ const Validators = require('../validations');
 
 module.exports = (validator) => {
   // eslint-disable-next-line no-prototype-builtins
-  if (!Validators.hasOwnProperty(validator))
+  if (!Validators.hasOwnProperty(validator)) {
     throw new Error(`'${validator}' validator is not exist`);
+  }
 
   // eslint-disable-next-line consistent-return
   return async (req, res, next) => {
