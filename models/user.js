@@ -1,9 +1,9 @@
-const { Model, DataTypes } = require('sequelize');
+const { Model } = require('sequelize');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
 
-module.exports = (sequelize) => {
+module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
      * Helper method for defining associations.
