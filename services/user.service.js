@@ -36,7 +36,18 @@ const loginUser = async (userBody) => {
   return user;
 };
 
+/**
+ * Get current logged in user
+ * @param {string} userId
+ * @returns {Promise<User>}
+ */
+const getCurrentUserLogged = async (userId) => {
+  const user = await db.User.findByPk(userId);
+  return user;
+};
+
 module.exports = {
   createUser,
   loginUser,
+  getCurrentUserLogged,
 };

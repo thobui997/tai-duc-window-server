@@ -39,7 +39,22 @@ const loginUser = asyncHandler(async (req, res) => {
   res.status(httpStatus.OK).cookie('token', token, options).json({ token });
 });
 
+/**
+ * @desc Get current user is logged in
+ * @route GET /api/v1/auth/me
+ * @access Private
+ */
+const getCurrentUserLogged = asyncHandler(async (req, res) => {
+  const user = await userService.getCurrentUserLogged(req.user.id);
+
+  const payload = user.dataValues;
+  delete payload.password;
+
+  res.status(httpStatus.OK).json({ ...payload });
+});
+
 module.exports = {
   createUser,
   loginUser,
+  getCurrentUserLogged,
 };
