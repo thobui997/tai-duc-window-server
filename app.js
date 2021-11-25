@@ -8,7 +8,7 @@ const morgan = require('./config/morgan');
 const logger = require('./config/logger');
 const { errorConverter, errorHandler } = require('./middlewares/error');
 const ApiError = require('./utils/ApiError');
-const database = require('./config/database');
+const db = require('./models/index');
 
 // routes
 const userRouter = require('./routes/user.router');
@@ -21,9 +21,6 @@ app.use(compression({ level: 6 }));
 
 // parse cookie
 app.use(cookieParser());
-
-// connect database
-database.connectDB();
 
 if (config.env !== 'test') {
   app.use(morgan.successHandler);
@@ -55,6 +52,37 @@ app.use(errorConverter);
 // handle error
 app.use(errorHandler);
 
-app.listen(config.port, () => {
-  logger.info(`Server started on port: ${config.port}`);
+let server;
+//  connecting to server
+db.sequelize.authenticate().then(() => {
+  logger.info('Connection has been established successfully.');
+  server = app.listen(config.port, () => {
+    logger.info(`Server started on port: ${config.port}`);
+  });
+});
+
+const exitHandler = () => {
+  if (server) {
+    server.close(() => {
+      logger.info('Server closed');
+      process.exit(1);
+    });
+  } else {
+    process.exit(1);
+  }
+};
+
+const unexpectedErrorHandler = (error) => {
+  logger.error(error);
+  exitHandler();
+};
+
+process.on('uncaughtException', unexpectedErrorHandler);
+process.on('unhandledRejection', unexpectedErrorHandler);
+
+process.on('SIGTERM', () => {
+  logger.info('SIGTERM received');
+  if (server) {
+    server.close();
+  }
 });
