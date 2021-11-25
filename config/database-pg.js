@@ -14,5 +14,6 @@ module.exports = {
     database: config.database,
     host: config.host,
     dialect: config.dbDialect,
+    port: config.dbPort,
   },
 };
