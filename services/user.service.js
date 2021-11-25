@@ -12,7 +12,7 @@ const createUser = async (userBody) => {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
   }
 
-  return db.User.create(userBody);
+  return await db.User.create(userBody);
 };
 
 /**

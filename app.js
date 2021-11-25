@@ -12,6 +12,7 @@ const database = require('./config/database');
 
 // routes
 const userRouter = require('./routes/user.router');
+const categoryRouter = require('./routes/category.router');
 
 const app = express();
 
@@ -41,6 +42,7 @@ app.options('*', cors());
 
 // mount router
 app.use('/api/v1/auth', userRouter);
+app.use('/api/v1', categoryRouter);
 
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {

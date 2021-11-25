@@ -47,7 +47,7 @@ const loginUser = asyncHandler(async (req, res) => {
 const getCurrentUserLogged = asyncHandler(async (req, res) => {
   const user = await userService.getCurrentUserLogged(req.user.id);
 
-  const payload = user.dataValues;
+  const payload = user.get({ plain: true });
   delete payload.password;
 
   res.status(httpStatus.OK).json({ ...payload });
