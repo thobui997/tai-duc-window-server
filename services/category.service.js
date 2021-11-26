@@ -69,10 +69,27 @@ const deleteCategoryById = async (id) => {
   await db.Category.destroy({ where: { id } });
 };
 
+/**
+ * Get products by category
+ * @param {string} categoryId
+ * @returns
+ */
+const getProductsByCategory = async (categoryId) => {
+  const category = await db.Category.findByPk(categoryId);
+  if (!category) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Category is not existed');
+  }
+  return await db.Category.findAll({
+    include: [{ model: db.Product, as: 'products', nested: true }],
+    raw: true,
+  });
+};
+
 module.exports = {
   createCategory,
   getCategories,
   getCategoryById,
   updateCategoryById,
   deleteCategoryById,
+  getProductsByCategory,
 };

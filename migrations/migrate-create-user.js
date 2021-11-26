@@ -3,7 +3,7 @@ module.exports = {
     return queryInterface.sequelize
       .query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";')
       .then(() => {
-        return queryInterface.createTable('Users', {
+        return queryInterface.createTable('users', {
           id: {
             allowNull: false,
             primaryKey: true,
@@ -35,6 +35,6 @@ module.exports = {
       });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('users');
   },
 };

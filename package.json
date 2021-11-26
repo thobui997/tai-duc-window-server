@@ -10,11 +10,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
     "start:dev": "nodemon app.js",
+    "migrate:db": "npx sequelize-cli db:migrate",
     "lint:fix": "eslint --fix .",
     "lint": "eslint ."
   },
   "keywords": [],
-  "author": "",
+  "author": "ThoBT",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",

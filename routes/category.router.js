@@ -16,4 +16,9 @@ router
   .put(authenticate, validate('category'), categoryController.updateCategory)
   .delete(authenticate, categoryController.deleteCategory);
 
+router.get(
+  '/category/product/:categoryId',
+  categoryController.getProductsByCategory
+);
+
 module.exports = router;

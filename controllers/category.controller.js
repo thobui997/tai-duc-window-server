@@ -57,10 +57,24 @@ const deleteCategory = asyncHandler(async (req, res) => {
   res.status(httpStatus.OK).json({});
 });
 
+/**
+ * @desc Get all products by category
+ * @route GET /api/v1/category/product/:categoryId
+ * @access Public
+ */
+const getProductsByCategory = asyncHandler(async (req, res) => {
+  const categories = await categoryService.getProductsByCategory(
+    req.params.categoryId
+  );
+
+  res.status(httpStatus.OK).json({ categories });
+});
+
 module.exports = {
   createCategory,
   getCategories,
   getCategory,
   updateCategory,
   deleteCategory,
+  getProductsByCategory,
 };
