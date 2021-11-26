@@ -42,7 +42,9 @@ const loginUser = async (userBody) => {
  * @returns {Promise<User>}
  */
 const getCurrentUserLogged = async (userId) => {
-  const user = await db.User.findByPk(userId);
+  const user = await db.User.findByPk(userId, {
+    attributes: { exclude: ['password'] },
+  });
   return user;
 };
 
