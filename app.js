@@ -14,11 +14,23 @@ const db = require('./models/index');
 const userRouter = require('./routes/user.router');
 const categoryRouter = require('./routes/category.router');
 const productRouter = require('./routes/product.router');
+const uploadImageRouter = require('./routes/upload-image.router');
 
 const app = express();
 
 // Compress all HTTP response
-app.use(compression({ level: 6 }));
+app.use(
+  compression({
+    level: 6,
+    threshold: 100 * 1000,
+    filter: (req, res) => {
+      if (req.headers['x-no-compress']) {
+        return false;
+      }
+      return compression.filter(req, res);
+    },
+  })
+);
 
 // parse cookie
 app.use(cookieParser());
@@ -42,6 +54,7 @@ app.options('*', cors());
 app.use('/api/v1/auth', userRouter);
 app.use('/api/v1', categoryRouter);
 app.use('/api/v1', productRouter);
+app.use('/api/v1', uploadImageRouter);
 
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {

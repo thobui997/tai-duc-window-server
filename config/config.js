@@ -17,6 +17,10 @@ const envVarsSchema = Joi.object()
     JWT_SECRET: Joi.string().required(),
     JWT_EXPIRE: Joi.string().required(),
     JWT_COOKIE_EXPIRE: Joi.number().required(),
+    GG_CLIENT_ID: Joi.string().required(),
+    GG_CLIENT_SECRET: Joi.string().required(),
+    GG_REFRESH_TOKEN: Joi.string().required(),
+    GG_REDIRECT_URI: Joi.string().required(),
   })
   .unknown();
 
@@ -41,4 +45,8 @@ module.exports = {
   jwtSecret: envVars.JWT_SECRET,
   jwtExpire: envVars.JWT_EXPIRE,
   jwtCookieExpire: envVars.JWT_COOKIE_EXPIRE,
+  ggClientId: envVars.GG_CLIENT_ID,
+  ggClientSecret: envVars.GG_CLIENT_SECRET,
+  ggRedirectUri: envVars.GG_REDIRECT_URI,
+  ggRefreshToken: envVars.GG_REFRESH_TOKEN,
 };
