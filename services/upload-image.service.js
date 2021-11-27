@@ -33,11 +33,6 @@ const setFilePublic = async (fileId) => {
         type: 'anyone',
       },
     });
-
-    return await drive.files.get({
-      fileId,
-      fields: 'webViewLink, webContentLink',
-    });
   } catch (error) {
     throw new ApiError(
       httpStatus.INTERNAL_SERVER_ERROR,
@@ -56,19 +51,16 @@ const uploadFile = async (file) => {
     const createFile = await drive.files.create({
       requestBody: { name: file.filename },
       media: {
-        body: fs.createReadStream(
-          path.join(__dirname, `/../${filePath}`),
-          'utf8'
-        ),
+        body: fs.createReadStream(path.join(__dirname, `/../${filePath}`)),
       },
     });
+
+    await setFilePublic(createFile.data.id);
 
     // remove file
     fs.unlinkSync(filePath);
 
-    const getUrl = await setFilePublic(createFile.data.id);
-
-    return getUrl.data;
+    return createFile.data;
   } catch (error) {
     logger.error('Imgae upload not successfully: ', error);
     fs.unlinkSync(filePath);
