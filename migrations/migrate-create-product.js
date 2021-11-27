@@ -11,8 +11,9 @@ module.exports = {
             defaultValue: Sequelize.literal('uuid_generate_v4()'),
           },
           category_id: {
-            allowNull: false,
+            allowNull: true,
             type: Sequelize.UUID,
+            onDelete: 'SET NULL',
             references: {
               model: {
                 tableName: 'categories',
