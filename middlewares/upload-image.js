@@ -1,4 +1,5 @@
 const multer = require('multer');
+const fs = require('fs');
 
 const fileFilter = (req, file, cb) => {
   if (!file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG)$/)) {
@@ -9,7 +10,9 @@ const fileFilter = (req, file, cb) => {
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads');
+    fs.mkdir('uploads', (err) => {
+      cb(null, 'uploads');
+    });
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);

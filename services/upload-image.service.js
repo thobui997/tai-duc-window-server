@@ -56,7 +56,10 @@ const uploadFile = async (file) => {
     const createFile = await drive.files.create({
       requestBody: { name: file.filename },
       media: {
-        body: fs.createReadStream(path.join(__dirname, `/../${filePath}`)),
+        body: fs.createReadStream(
+          path.join(__dirname, `/../${filePath}`),
+          'utf8'
+        ),
       },
     });
 
