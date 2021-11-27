@@ -80,8 +80,7 @@ const getProductsByCategory = async (categoryId) => {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Category is not existed');
   }
   return await db.Category.findAll({
-    include: [{ model: db.Product, as: 'products', nested: true }],
-    raw: true,
+    include: [{ model: db.Product }],
   });
 };
 
