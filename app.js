@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const httpStatus = require('http-status');
 const compression = require('compression');
-const cookieParser = require('cookie-parser');
 const config = require('./config/config');
 const morgan = require('./config/morgan');
 const logger = require('./config/logger');
@@ -31,9 +30,6 @@ app.use(
     },
   })
 );
-
-// parse cookie
-app.use(cookieParser());
 
 if (config.env !== 'test') {
   app.use(morgan.successHandler);

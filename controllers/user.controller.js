@@ -25,18 +25,7 @@ const loginUser = asyncHandler(async (req, res) => {
   // create token
   const token = user.getSignedJwtToken();
 
-  const options = {
-    expires: new Date(
-      Date.now() + config.jwtCookieExpire * 24 * 60 * 60 * 1000
-    ),
-    httpOnly: true,
-  };
-
-  if (config.env === 'production') {
-    options.secure = true;
-  }
-
-  res.status(httpStatus.OK).cookie('token', token, options).json({ token });
+  res.status(httpStatus.OK).json({ token });
 });
 
 /**

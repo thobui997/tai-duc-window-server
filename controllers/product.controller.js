@@ -19,9 +19,9 @@ const createProduct = asyncHandler(async (req, res) => {
  * @access Public
  */
 const getProducts = asyncHandler(async (req, res) => {
-  const products = await productService.getProducts();
+  const products = await productService.getProducts(req);
 
-  res.status(httpStatus.OK).json({ products });
+  res.status(httpStatus.OK).json(products);
 });
 
 /**

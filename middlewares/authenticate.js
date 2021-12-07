@@ -15,10 +15,6 @@ const authenticate = asyncHandler(async (req, res, next) => {
     token = req.headers.authorization.split(' ')[1];
   }
 
-  // if (req.cookies.token) {
-  //   token = req.cookies.token;
-  // }
-
   if (!token) {
     return next(
       new ApiError(

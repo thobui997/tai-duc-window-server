@@ -3,6 +3,31 @@ const db = require('../models/index');
 const ApiError = require('../utils/ApiError');
 
 /**
+ * Return a object contain data, pagination
+ * @param {object} data
+ * @param {number} page
+ * @param {number} limit
+ */
+const getPaginationProducts = (data, page, limit) => {
+  const { count: totalItems, rows: products } = data;
+  const currentPage = page ? +page : 0;
+  const totalPages = Math.ceil(totalItems / limit);
+  return { totalItems, products, currentPage, totalPages };
+};
+
+/**
+ * Return info pagination
+ * @param {string} page
+ * @param {string} size
+ */
+const getPagination = (page, size) => {
+  const limit = size ? +size : 10;
+  const offset = page ? page * limit : 0;
+
+  return { limit, offset };
+};
+
+/**
  * Create a product
  * @param {object} productBody
  */
@@ -26,11 +51,17 @@ const createNewProduct = async (productBody) => {
 /**
  * Get all products
  */
-const getProducts = async () => {
-  const products = await db.Product.findAll({
+const getProducts = async (req) => {
+  const { page, size } = req.query;
+  const { limit, offset } = getPagination(page, size);
+  const products = await db.Product.findAndCountAll({
+    limit,
+    offset,
     order: [['createdAt', 'DESC']],
   });
-  return products;
+
+  const response = getPaginationProducts(products, page, limit);
+  return response;
 };
 
 /**
