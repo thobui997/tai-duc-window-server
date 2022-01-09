@@ -10,7 +10,7 @@ const uploadImageService = require('../services/upload-image.service');
 const uploadImage = asyncHandler(async (req, res) => {
   const image = await uploadImageService.uploadFile(req.file);
 
-  res.status(httpStatus.CREATED).json({ image });
+  res.status(httpStatus.CREATED).json(image);
 });
 
 /**

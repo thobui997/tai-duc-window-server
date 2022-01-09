@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
 const createProductSchema = Joi.object({
-  categoryName: Joi.string().lowercase().required(),
+  categoryName: Joi.string().lowercase().default(null),
   title: Joi.string().lowercase().required(),
   description: Joi.string().lowercase().required(),
   image: Joi.string().lowercase().required(),
