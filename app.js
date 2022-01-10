@@ -63,17 +63,24 @@ app.use(errorConverter);
 // handle error
 app.use(errorHandler);
 
-//  connecting to server
+//  connecting to database
 db.sequelize
   .authenticate()
   .then(() => {
     logger.info('Connection has been established successfully.');
-    app.listen(config.port, () => {
-      logger.info(`Server started on port: ${config.port}`);
-    });
   })
   .catch((err) => {
     logger.error('Unable to connect to the database:', err);
     db.sequelize.close();
-    process.exit(1);
+    process.exit(0);
   });
+
+// connect to server
+try {
+  app.listen(config.port, () => {
+    logger.info(`Server started on port: ${config.port}`);
+  });
+} catch (error) {
+  logger.error(`Server crashed: ${error}`);
+  process.exit(0);
+}
